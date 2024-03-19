@@ -49,17 +49,20 @@ The code above shows the form submission that used AJAX instead of regular form 
 
 controller:
 ```php
+use yii\helpers\Json;
+```
+
+```php
 public function actionCreateTerm()
 {
 	$model = new LpdpTerms();
-	Yii::$app->response->format = Response::FORMAT_JSON;
 
 	if (Yii::$app->request->isAjax) {
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return ['success' => true];
+			return Json::encode(['success' => true]);
 		}
 	} else {
-		return ['success' => false];
+		return Json::encode(['success' => false]);
 	}
 }
 ```
